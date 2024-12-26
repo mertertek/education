@@ -29,7 +29,7 @@ class CourseText(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Text for {self.course.name} - {self.id}"
+        return f"Text: {self.course.name} - {self.id}"
 
 class StudentProgress(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="progress")

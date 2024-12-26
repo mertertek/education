@@ -63,7 +63,7 @@ class JoinCourseAPIView(APIView):
         course = get_object_or_404(Course, pk=course_id)
 
         if course.students.filter(id=student.id).exists():
-            return Response({"message": "You are already enrolled in this course."}, status=status.HTTP_200_OK)
+            return Response({"message": "You are already joined course."}, status=status.HTTP_200_OK)
 
         course.students.add(student)
         course.save()

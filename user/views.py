@@ -100,15 +100,11 @@ class StudentDetailAPIView(APIView):
 
     def get(self, request, pk):
         student = get_object_or_404(Student, pk=pk)
-        
-        # Öğrencinin sertifikalarını alıyoruz
         certificates = Certificate.objects.filter(course_user=student)
+        student_serializer = StudentSerializer(student)
+        certificate_serializer = CertificateSerializer(certificates, many=True)
         
-        # Sertifikaları ekliyoruz
-        student_data = StudentSerializer(student).data
-        student_data['certificates'] = CertificateSerializer(certificates, many=True).data
-        
-        return Response(student_data, status=status.HTTP_200_OK)
+        return Response({"student": student_serializer.data, "certificates": certificate_serializer.data}, status=status.HTTP_200_OK)
 
 
     def patch(self, request, pk):
